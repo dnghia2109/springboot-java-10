@@ -67,7 +67,8 @@ public class AuthService {
             // Generate JWT token
 
 
-            // Lưu thông tin vào trong cookie
+            // Lưu thông tin vào trong cookie (nếu không sd cookie thì trả thẳng token về)
+            // Cho client và mỗi request 
 
 
             // Trả về token cho client

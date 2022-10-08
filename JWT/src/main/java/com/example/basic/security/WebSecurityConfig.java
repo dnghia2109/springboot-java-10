@@ -56,14 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .accessDeniedHandler(accessDeniedHandlerCustom)
                 .and()
                     .logout()
-                    .logoutUrl("/api/auth/logout-handle")
+//                    .logoutUrl("/logout-handle")
                     .invalidateHttpSession(true)
-                    .deleteCookies("JWT_TOKEN", "JSESSIONID")
+                    .deleteCookies("JWT_COOKIE", "JSESSIONID")
                     .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
                     .permitAll()
                 .and()
                     .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // se khong sinh ra session nua
                 .and()
                     .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class);
     }

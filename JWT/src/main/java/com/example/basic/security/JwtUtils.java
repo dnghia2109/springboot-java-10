@@ -27,16 +27,34 @@ public class JwtUtils {
 
     // Sinh token
     public String generateToken(UserDetails userDetails) {
-        return null;
+        // Lưu thông tin Authorities của user vào claims
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("authorities", userDetails.getAuthorities());
+
+        // 1. Định nghĩa các claims: issuer, expiration, subject, id
+        // 2. Mã hóa token sử dụng thuật toán HS512 và key bí mật
+        // 3. Convert thành chuỗi URL an toàn
+        // 4. Cộng chuỗi đã sinh ra với tiền tố Bearer
+        String token = Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userDetails.getUsername()) // name = email
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + duration * 1000))
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
+        return token;
     }
 
     // Lấy thông tin được lưu trong token
     public Claims getClaimsFromToken(String token) {
-        return null;
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     // Lấy token từ trong header của request
     public String getTokenFromCookie(HttpServletRequest request) {
+        Cookie cookie = WebUtils.getCookie(request, "JWT_COOKIE");
+        if (cookie != null) {
+            return cookie.getValue();
+        }
         return null;
     }
 }

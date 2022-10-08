@@ -25,16 +25,34 @@ public class AuthorizationFilterCustom extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // Lấy token từ trong header của request
+        // Lấy token từ trong cookie của request
+        String token = jwtUtils.getTokenFromCookie(request);
+        if (token == null){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 
         // Parse thông tin từ token
+        Claims claims = jwtUtils.getClaimsFromToken(token);
 
         // Kiểm tra token đã hết hạn hay chưa
+        if (claims.getExpiration().before(new Date())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         // Lấy thông tin của user dựa trên email
+        String email = claims.getSubject();
+        UserDetails userDetails = userService.loadUserByUsername(email);
 
         // Tạo đối tượng authentication
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         // Lưu vào trong context
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        filterChain.doFilter(request, response);
+
     }
 }

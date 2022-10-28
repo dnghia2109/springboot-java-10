@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Appication</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <th:block sec:authorize="not isAuthenticated()">
+                    <a href="/login" class="btn btn-primary">Login</a>
+                </th:block>
+
+                <th:block sec:authorize=" isAuthenticated()">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<!--                            <th:block sec:authentication="name"></th:block>-->
+                            <th:block sec:authentication="principal.FullName"></th:block>
+<!--                            <th:block th:text="${user.getUsername()}"></th:block>-->
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="/">Trang chủ</a></li>
+                            <li><a class="dropdown-item" href="/profile" sec:authorize="hasRole('USER')">Trang cá nhân</a></li>
+                            <li><a class="dropdown-item" href="/admin/blogs" sec:authorize="hasAnyRole('EDITOR', 'ADMIN')">Quản lý bài viết</a></li>
+                            <li><a class="dropdown-item" href="/admin/users" sec:authorize="hasRole('ADMIN')">Quản lý user</a></li>
+                            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container py-5">
+    <h1>User page</h1>
+    <h3 th:text="${user.toString()}"></h3>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

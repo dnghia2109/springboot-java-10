@@ -1,4 +1,4 @@
-# Project book store 
+# Project book store (Incomplete)
 ### Todo :
 - Check out cart.
 - Update quantity.

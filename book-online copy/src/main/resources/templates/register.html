@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Book Online</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="/"
+          ><span class="fa fa-book"></span> Book Online
+        </a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h2 class="mt-5 text-center mb-4">Register</h2>
+
+          <div class="p-4 bg-light">
+            <form th:object="${registerRequest}" method="post" action="">
+              <!-- Email -->
+              <div class="form-group mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{email}"
+                  autocomplete="off"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                >
+                  email error
+                </div>
+              </div>
+              <!-- Username -->
+              <div class="form-group mb-3">
+                <label class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{username}"
+                  autocomplete="off"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}"
+                >
+                  username error
+                </div>
+              </div>
+              <!-- Full name -->
+              <div class="form-group mb-3">
+                <label class="form-label">Full name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{fullName}"
+                  autocomplete="off"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('fullName')}"
+                  th:errors="*{fullName}"
+                >
+                  fullName error
+                </div>
+              </div>
+              <!-- Password -->
+              <div class="form-group mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  th:field="*{password}"
+                  autocomplete="off"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                >
+                  password error
+                </div>
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN success alert -->
+    <div th:replace="fragments :: successAlert"></div>
+    <!-- END success alert -->
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Profile</h1>
+
+      <!-- BEGIN Table of details -->
+      <div class="col-8">
+        <table class="table table-bordered">
+          <!-- Username -->
+          <tr>
+            <th>Username</th>
+            <td th:text="${user.username}"></td>
+          </tr>
+          <!-- Avatar -->
+          <tr>
+            <th>Avatar</th>
+            <td>
+              <img th:src="|/${user.avatar}|" alt="" class="logo-medium" />
+            </td>
+          </tr>
+          <!-- Email -->
+          <tr>
+            <th>Email</th>
+            <td th:text="${user.email}"></td>
+          </tr>
+          <!-- Mobile -->
+          <tr>
+            <th>Mobile</th>
+            <td th:text="${user.mobile}"></td>
+          </tr>
+          <!-- Full name -->
+          <tr>
+            <th>Full name</th>
+            <td th:text="${user.fullName}"></td>
+          </tr>
+          <!-- Gender -->
+          <tr>
+            <th>Gender</th>
+            <td th:text="${user.gender}"></td>
+          </tr>
+          <!-- Date of birth -->
+          <tr>
+            <th>Date of birth</th>
+            <td th:text="${user.dob}"></td>
+          </tr>
+          <!-- Home address -->
+          <tr>
+            <th>Home address</th>
+            <td th:text="${user.homeAddress}"></td>
+          </tr>
+          <!-- Work address -->
+          <tr>
+            <th>Work address</th>
+            <td th:text="${user.workAddress}"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Buttons -->
+      <form
+        id="form-update"
+        class="mb-3"
+        th:action="@{/profile/update}"
+        method="get"
+      >
+        <button
+          type="submit"
+          form="form-update"
+          class="btn btn-sm btn-secondary"
+        >
+          <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+      </form>
+      <!-- END Table of details -->
+    </div>
+    <!-- END container -->
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

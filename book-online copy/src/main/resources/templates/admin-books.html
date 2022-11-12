@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN success alert -->
+    <div th:replace="fragments :: successAlert"></div>
+    <!-- END success alert -->
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Books</h1>
+
+      <a
+        type="button"
+        class="btn btn-sm btn-primary mb-3"
+        th:href="@{/admin/books/add}"
+        >Add new book</a
+      >
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Categories</th>
+            <th scope="col">Authors</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="book, iStat : ${books}">
+            <!-- # -->
+            <th scope="row" th:text="${iStat.index + 1}"></th>
+            <!-- Name -->
+            <td>
+              <a
+                th:href="@{|/admin/books/${book.id}|}"
+                th:text="${book.name}"
+              ></a>
+            </td>
+            <!-- Thumbnail -->
+            <td>
+              <img th:src="|/${book.thumbnail}|" alt="" class="logo-small" />
+            </td>
+            <!-- Categories -->
+            <td th:text="${{bookService.getCategoriesNames(book)}}"></td>
+            <!-- Authors -->
+            <td th:text="${{bookService.getAuthorsNames(book)}}"></td>
+            <!-- Options -->
+            <td>
+              <form
+                id="form-update"
+                th:action="@{|/admin/books/${book.id}/update|}"
+                method="GET"
+              >
+                <button
+                  type="submit"
+                  form="form-update"
+                  class="btn btn-sm btn-secondary"
+                >
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+              </form>
+              <form
+                id="form-delete"
+                th:action="@{|/admin/books/${book.id}/delete|}"
+                method="GET"
+              >
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  class="btn btn-sm btn-danger"
+                >
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- BEGIN Pagination  -->
+      <nav
+        th:replace="fragments :: admin-pagination('books')"
+        aria-label="Page navigation"
+      ></nav>
+      <!-- END Pagination  -->
+    </div>
+    <!-- END container -->
+
+    <!-- Modal confirm delete -->
+    <div th:replace="fragments :: modalConfirmDelete"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

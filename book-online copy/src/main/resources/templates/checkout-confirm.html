@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header th:replace="fragments :: header"></header>
+
+      <!-- Container -->
+      <div class="container">
+        <h4>
+          Thank you for buying books from our store. We will contact you soon.
+        </h4>
+        <a href="/">Back to the home page</a>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

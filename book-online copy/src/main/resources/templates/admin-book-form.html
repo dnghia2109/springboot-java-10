@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+  </head>
+  <body>
+    <!-- BEGIN fragment form -->
+    <form
+      th:fragment="form"
+      class="col-4"
+      action=""
+      th:object="${bookRequest}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" th:field="*{name}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"
+          >
+            name error
+          </div>
+        </div>
+        <!-- Thumbnail -->
+        <div class="form-group">
+          <label for="multipartFile" class="form-label">Thumbnail</label>
+          <p>
+            <img
+              th:src="|/${bookRequest.thumbnail}|"
+              alt=""
+              class="logo-medium"
+            />
+          </p>
+          <input type="file" class="form-control" th:field="*{multipartFile}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('multipartFile')}"
+            th:errors="*{multipartFile}"
+          >
+            multipartFile error
+          </div>
+        </div>
+        <!-- Publisher -->
+        <div class="form-group">
+          <label for="publisher" class="form-label">Publisher</label>
+          <select th:field="*{publisher}" class="form-control">
+            <option
+              th:each="publisher : ${publishers}"
+              th:value="${publisher.id}"
+              th:text="${publisher.name}"
+              th:selected="${bookRequest.publisher == publisher}"
+            >
+              publisher
+            </option>
+          </select>
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('publisher')}"
+            th:errors="*{publisher}"
+          >
+            publisher error
+          </div>
+        </div>
+        <!-- Published year -->
+        <div class="form-group">
+          <label for="publishedYear" class="form-label">Published year</label>
+          <input type="text" class="form-control" th:field="*{publishedYear}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('publishedYear')}"
+            th:errors="*{publishedYear}"
+          >
+            publishedYear error
+          </div>
+        </div>
+        <!-- Pages -->
+        <div class="form-group">
+          <label for="pages" class="form-label">Pages</label>
+          <input type="text" class="form-control" th:field="*{pages}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('pages')}"
+            th:errors="*{pages}"
+          >
+            pages error
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" class="form-control" th:field="*{description}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('description')}"
+            th:errors="*{description}"
+          >
+            description error
+          </div>
+        </div>
+        <!-- Categories -->
+        <div class="form-group">
+          <label for="categories" class="form-label">Categories</label>
+          <select
+            th:field="*{categories}"
+            class="form-control"
+            multiple="multiple"
+          >
+            <option
+              th:each="category : ${categories}"
+              th:value="${category.id}"
+              th:text="${category.name}"
+              th:selected="${#sets.contains(bookRequest.categories, category)}"
+            >
+              category
+            </option>
+          </select>
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('categories')}"
+            th:errors="*{categories}"
+          >
+            categories error
+          </div>
+        </div>
+        <!-- Authors -->
+        <div class="form-group">
+          <label for="authors" class="form-label">Authors</label>
+          <select
+            th:field="*{authors}"
+            class="form-control"
+            multiple="multiple"
+          >
+            <option
+              th:each="author : ${authors}"
+              th:value="${author.id}"
+              th:text="${author.fullName}"
+              th:selected="${#sets.contains(bookRequest.authors, author)}"
+            >
+              author
+            </option>
+          </select>
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('authors')}"
+            th:errors="*{authors}"
+          >
+            authors error
+          </div>
+        </div>
+        <!-- Price -->
+        <div class="form-group">
+          <label for="price" class="form-label">Price</label>
+          <input type="text" class="form-control" th:field="*{price}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('price')}"
+            th:errors="*{price}"
+          >
+            price error
+          </div>
+        </div>
+        <!-- Quantity -->
+        <div class="form-group">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="text" class="form-control" th:field="*{quantity}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('quantity')}"
+            th:errors="*{quantity}"
+          >
+            quantity error
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+      <button type="reset" class="btn btn-danger mb-3">Reset</button>
+    </form>
+    <!-- END fragment form -->
+  </body>
+</html>

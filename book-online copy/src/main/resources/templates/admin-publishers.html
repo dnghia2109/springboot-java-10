@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN success alert -->
+    <div th:replace="fragments :: successAlert"></div>
+    <!-- END success alert -->
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Publishers</h1>
+
+      <a
+        type="button"
+        class="btn btn-sm btn-primary mb-3"
+        th:href="@{/admin/publishers/add}"
+        >Add new publisher</a
+      >
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number of books</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="publisher, iStat : ${publishers}">
+            <!-- # -->
+            <th scope="row" th:text="${iStat.index + 1}"></th>
+            <!-- Name -->
+            <td>
+              <a
+                th:href="@{|/admin/publishers/${publisher.id}|}"
+                th:text="${publisher.name}"
+              ></a>
+            </td>
+            <!-- Number of books -->
+            <td th:text="${publisher.books.size}"></td>
+            <!-- Options -->
+            <td>
+              <form
+                id="form-update"
+                th:action="@{|/admin/publishers/${publisher.id}/update|}"
+                method="GET"
+              >
+                <button
+                  type="submit"
+                  form="form-update"
+                  class="btn btn-sm btn-secondary"
+                >
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+              </form>
+              <form
+                id="form-delete"
+                th:action="@{|/admin/publishers/${publisher.id}/delete|}"
+                method="GET"
+              >
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  class="btn btn-sm btn-danger"
+                >
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- BEGIN Pagination  -->
+      <nav
+        th:replace="fragments :: admin-pagination('publishers')"
+        aria-label="Page navigation"
+      ></nav>
+      <!-- END Pagination  -->
+    </div>
+    <!-- END container -->
+
+    <!-- Modal confirm delete -->
+    <div th:replace="fragments :: modalConfirmDelete"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

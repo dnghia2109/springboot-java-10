@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: css"></th:block>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header th:replace="fragments :: header"></header>
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+          <h1>Contact Us</h1>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d22326.409601054624!2d105.75992039367578!3d20.98170547382856!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134537024fea085%3A0x9e725785b98699bf!2sTechmaster%20Viet%20nam!5e0!3m2!1svi!2s!4v1660486271531!5m2!1svi!2s"
+            width="100%"
+            height="450px"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <p>
+            Donec eget ex magna. Interdum et malesuada fames ac ante ipsum
+            primis in faucibus. Pellentesque venenatis dolor imperdiet dolor
+            mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor
+            sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet,
+            fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit.
+            Donec urna ex, lacinia in purus ac, pretium pulvinar mauris.
+            Curabitur sapien risus, commodo eget turpis at, elementum convallis
+            elit. Pellentesque enim turpis, hendrerit tristique.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <div class="inner">
+          <section>
+            <h2>Contact Us</h2>
+            <form method="post" action="#">
+              <div>
+                <div>
+                  <input
+                    class="form-control mb-3"
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Name"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    class="form-control mb-3"
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    class="form-control mb-3"
+                    type="text"
+                    name="subject"
+                    id="subject"
+                    placeholder="Subject"
+                  />
+                </div>
+
+                <div>
+                  <textarea
+                    class="form-control mb-3"
+                    name="message"
+                    id="message"
+                    rows="3"
+                    placeholder="Notes"
+                  ></textarea>
+                </div>
+
+                <div class="text-right">
+                  <label>&nbsp;</label>
+
+                  <ul class="actions">
+                    <li>
+                      <input
+                        type="submit"
+                        value="Send Message"
+                        class="btn btn-secondary"
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </form>
+          </section>
+          <section>
+            <h2>Contact Info</h2>
+
+            <ul class="alt">
+              <li>
+                <span class="fa fa-envelope-o"></span>
+                <a href="#">contact@company.com</a>
+              </li>
+              <li><span class="fa fa-phone"></span> +1 333 4040 5566</li>
+              <li>
+                <span class="fa fa-map-pin"></span> 212 Barrington Court New
+                York, ABC 10001 United States of America
+              </li>
+            </ul>
+
+            <h2>Follow Us</h2>
+
+            <ul class="icons">
+              <li>
+                <a href="#" class="icon style2 fa-twitter"
+                  ><span class="label">Twitter</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon style2 fa-facebook"
+                  ><span class="label">Facebook</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon style2 fa-instagram"
+                  ><span class="label">Instagram</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon style2 fa-linkedin"
+                  ><span class="label">LinkedIn</span></a
+                >
+              </li>
+            </ul>
+          </section>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: scripts"></th:block>
+  </body>
+</html>

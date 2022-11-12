@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Update author</h1>
+
+      <!-- Form -->
+      <form th:replace="admin-author-form :: form"></form>
+    </div>
+    <!-- END container -->
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

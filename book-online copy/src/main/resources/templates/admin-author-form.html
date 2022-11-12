@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+  </head>
+  <body>
+    <!-- BEGIN fragment form -->
+    <form
+      th:fragment="form"
+      class="col-4"
+      action=""
+      th:object="${authorRequest}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <!-- Full name -->
+        <div class="form-group">
+          <label for="fullName" class="form-label">Full name</label>
+          <input type="text" class="form-control" th:field="*{fullName}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('fullName')}"
+            th:errors="*{fullName}"
+          >
+            fullName error
+          </div>
+        </div>
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="gender" class="form-label">Gender</label>
+          <!-- Add gender -->
+          <select
+            th:unless="${authorRequest.gender}"
+            class="form-select"
+            name="gender"
+          >
+            <option
+              th:each="gender : ${T(vn.techmaster.bookonline.entity.Gender).values()}"
+              th:value="${gender}"
+              th:text="${gender}"
+            ></option>
+          </select>
+          <!-- Update gender -->
+          <select
+            th:if="${authorRequest.gender}"
+            class="form-select"
+            name="gender"
+          >
+            <option
+              th:each="gender : ${T(vn.techmaster.bookonline.entity.Gender).values()}"
+              th:value="${gender}"
+              th:text="${gender}"
+              th:selected="${authorRequest.gender == gender}"
+            ></option>
+          </select>
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('gender')}"
+            th:errors="*{gender}"
+          >
+            gender error
+          </div>
+        </div>
+        <!-- Address -->
+        <div class="form-group">
+          <label for="address" class="form-label">Address</label>
+          <input type="text" class="form-control" th:field="*{address}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('address')}"
+            th:errors="*{address}"
+          >
+            address error
+          </div>
+        </div>
+        <!-- Year of birth -->
+        <div class="form-group">
+          <label for="yearOfBirth" class="form-label">Year of birth</label>
+          <input type="text" class="form-control" th:field="*{yearOfBirth}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('yearOfBirth')}"
+            th:errors="*{yearOfBirth}"
+          >
+            yearOfBirth error
+          </div>
+        </div>
+        <!-- Year of death -->
+        <div class="form-group">
+          <label for="yearOfDeath" class="form-label">Year of death</label>
+          <input type="text" class="form-control" th:field="*{yearOfDeath}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('yearOfDeath')}"
+            th:errors="*{yearOfDeath}"
+          >
+            yearOfDeath error
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+      <button type="reset" class="btn btn-danger mb-3">Reset</button>
+    </form>
+    <!-- END fragment form -->
+  </body>
+</html>

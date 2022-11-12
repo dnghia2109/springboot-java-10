@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: css"></th:block>
+
+    <link rel="stylesheet" th:href="@{/assets/css/books.css}" />
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header th:replace="fragments :: header"></header>
+
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
+          <h1>Books</h1>
+
+          <div class="image main">
+            <img
+              src="images/banner-image-6-1920x500.jpg"
+              class="img-fluid"
+              alt=""
+            />
+          </div>
+
+          <!-- Search and filter -->
+          <div class="mb-5">
+            <div>
+              <input
+                id="input-search"
+                type="search"
+                class="form-control"
+                placeholder="Keyword..."
+                aria-label="Search"
+                th:value="${name}"
+              />
+            </div>
+          </div>
+
+          <!-- Products -->
+          <section class="tiles">
+            <article th:each="book : ${books}">
+              <span class="image">
+                <img th:src="|/${book.thumbnail}|" alt="" />
+              </span>
+              <a th:href="@{|/books/${book.id}|}">
+                <h2 th:text="${book.name}">
+                  Lorem ipsum dolor sit amet, consectetur
+                </h2>
+
+                <p>
+                  <strong
+                    th:text="|${#numbers.formatInteger(book.price, 3, 'COMMA')} đ|"
+                    >$19.00</strong
+                  >
+                </p>
+
+                <p th:text="${#strings.abbreviate(book.description, 100)}">
+                  Vestibulum id est eu felis vulputate hendrerit uspendisse
+                  dapibus turpis in
+                </p>
+              </a>
+            </article>
+          </section>
+
+          <!-- BEGIN Pagination  -->
+          <nav
+            th:replace="fragments :: pagination('books')"
+            aria-label="Page navigation"
+          ></nav>
+          <!-- END Pagination  -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <div class="inner">
+          <section>
+            <ul class="icons">
+              <li>
+                <a href="#" class="icon style2 fa-twitter"
+                  ><span class="label">Twitter</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon style2 fa-facebook"
+                  ><span class="label">Facebook</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon style2 fa-instagram"
+                  ><span class="label">Instagram</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="icon style2 fa-linkedin"
+                  ><span class="label">LinkedIn</span></a
+                >
+              </li>
+            </ul>
+            &nbsp;
+          </section>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: scripts"></th:block>
+
+    <script th:src="@{/assets/js/books.js}"></script>
+  </body>
+</html>

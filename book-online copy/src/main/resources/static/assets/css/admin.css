@@ -1,0 +1,12 @@
+.logo-small {
+  width: 50px;
+}
+
+.logo-medium {
+  width: 100px;
+}
+
+#form-update,
+#form-delete {
+  display: inline-block;
+}

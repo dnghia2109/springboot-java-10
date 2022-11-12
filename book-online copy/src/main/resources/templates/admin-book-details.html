@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN success alert -->
+    <div th:replace="fragments :: successAlert"></div>
+    <!-- END success alert -->
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Book Details</h1>
+
+      <!-- BEGIN Table of details -->
+      <div class="col-8">
+        <table class="table table-bordered">
+          <!-- Name -->
+          <tr>
+            <th>Name</th>
+            <td th:text="${book.name}"></td>
+          </tr>
+          <!-- Thumbnail -->
+          <tr>
+            <th>Thumbnail</th>
+            <td>
+              <img th:src="|/${book.thumbnail}|" alt="" class="logo-medium" />
+            </td>
+          </tr>
+          <!-- Publisher -->
+          <tr>
+            <th>Publisher</th>
+            <td th:text="${book.publisher.name}"></td>
+          </tr>
+          <!-- Published year -->
+          <tr>
+            <th>Published year</th>
+            <td th:text="${book.publishedYear}"></td>
+          </tr>
+          <!-- Pages -->
+          <tr>
+            <th>Pages</th>
+            <td th:text="${book.pages}"></td>
+          </tr>
+          <!-- Description -->
+          <tr>
+            <th>Description</th>
+            <td th:text="${book.description}"></td>
+          </tr>
+          <!-- Categories -->
+          <tr>
+            <th>Categories</th>
+            <td th:text="${{bookService.getCategoriesNames(book)}}"></td>
+          </tr>
+          <!-- Authors -->
+          <tr>
+            <th>Authors</th>
+            <td th:text="${{bookService.getAuthorsNames(book)}}"></td>
+          </tr>
+          <!-- Price -->
+          <tr>
+            <th>Price</th>
+            <td th:text="|${#numbers.formatInteger(book.price, 3, 'COMMA')} đ|"></td>
+          </tr>
+          <!-- Quantity -->
+          <tr>
+            <th>Quantity</th>
+            <td th:text="${{book.quantity}}"></td>
+          </tr>
+          <!-- Created at -->
+          <tr>
+            <th>Created at</th>
+            <td th:text="${#temporals.format(book.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+          </tr>
+          <!-- Updated at -->
+          <tr>
+            <th>Updated at</th>
+            <td th:text="${#temporals.format(book.updatedAt, 'dd-MM-yyyy HH:mm')}"></td>
+          </tr>
+        </table>
+      </div>
+      <!-- END Table of details -->
+
+      <!-- Buttons -->
+      <form
+        id="form-update"
+        class="mb-3"
+        th:action="@{|/admin/books/${book.id}/update|}"
+        method="GET"
+      >
+        <button
+          type="submit"
+          form="form-update"
+          class="btn btn-sm btn-secondary"
+        >
+          <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+      </form>
+      <form
+        id="form-delete"
+        class="mb-3"
+        th:action="@{|/admin/books/${book.id}/delete|}"
+        method="GET"
+      >
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="btn btn-sm btn-danger"
+        >
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+      </form>
+    <!-- END container -->
+
+    <!-- Modal confirm delete -->
+    <div th:replace="fragments :: modalConfirmDelete"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

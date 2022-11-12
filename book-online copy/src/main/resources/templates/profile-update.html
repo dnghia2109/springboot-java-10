@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Update profile</h1>
+
+      <form
+        th:fragment="form"
+        class="col-4"
+        action=""
+        th:object="${userUpdateRequest}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <!-- Avatar -->
+          <div class="form-group">
+            <label for="multipartFile" class="form-label">Avatar</label>
+            <p>
+              <img
+                th:src="|/${userUpdateRequest.avatar}|"
+                alt=""
+                class="logo-medium"
+              />
+            </p>
+            <input
+              type="file"
+              class="form-control"
+              id="multipartFile"
+              th:field="*{multipartFile}"
+            />
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('multipartFile')}"
+              th:errors="*{multipartFile}"
+            >
+              multipartFile error
+            </div>
+          </div>
+          <!-- Full name -->
+          <div class="form-group">
+            <label for="fullName" class="form-label">Full name</label>
+            <input type="text" class="form-control" id="fullName" th:field="*{fullName}" />
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('fullName')}"
+              th:errors="*{fullName}"
+            >
+              fullName error
+            </div>
+          </div>
+          <!-- Mobile -->
+          <div class="form-group">
+            <label for="mobile" class="form-label">Mobile</label>
+            <input type="text" class="form-control" id="mobile" th:field="*{mobile}" />
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('mobile')}"
+              th:errors="*{mobile}"
+            >
+              mobile error
+            </div>
+          </div>
+          <!-- Gender -->
+          <div class="form-group">
+            <label for="gender" class="form-label">Gender</label>
+            <!-- Add gender -->
+            <select
+              id="gender"
+              th:unless="${userUpdateRequest.gender}"
+              class="form-select"
+              name="gender"
+            >
+              <option
+                th:each="gender : ${T(vn.techmaster.bookonline.entity.Gender).values()}"
+                th:value="${gender}"
+                th:text="${gender}"
+              ></option>
+            </select>
+            <!-- Update gender -->
+            <select
+              th:if="${userUpdateRequest.gender}"
+              class="form-select"
+              name="gender"
+            >
+              <option
+                th:each="gender : ${T(vn.techmaster.bookonline.entity.Gender).values()}"
+                th:value="${gender}"
+                th:text="${gender}"
+                th:selected="${userUpdateRequest.gender == gender}"
+              ></option>
+            </select>
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('gender')}"
+              th:errors="*{gender}"
+            >
+              gender error
+            </div>
+          </div>
+          <!-- Dob -->
+          <div class="form-group">
+            <label for="dob" class="form-label">Date of birth</label>
+            <input type="date" class="form-control" id="dob" th:field="*{dob}" />
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('dob')}"
+              th:errors="*{dob}"
+            >
+              dob error
+            </div>
+          </div>
+          <!-- Home address -->
+          <div class="form-group">
+            <label for="homeAddress" class="form-label">Home address</label>
+            <input type="text" class="form-control" id="homeAddress" th:field="*{homeAddress}" />
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('homeAddress')}"
+              th:errors="*{homeAddress}"
+            >
+              homeAddress error
+            </div>
+          </div>
+          <!-- Work address -->
+          <div class="form-group">
+            <label for="workAddress" class="form-label">Work address</label>
+            <input type="text" class="form-control" id="workAddress" th:field="*{workAddress}" />
+            <div
+              class="text-danger"
+              th:if="${#fields.hasErrors('workAddress')}"
+              th:errors="*{workAddress}"
+            >
+              workAddress error
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        <button type="reset" class="btn btn-danger mb-3">Reset</button>
+      </form>
+    </div>
+    <!-- END container -->
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

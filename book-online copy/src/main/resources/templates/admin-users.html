@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Users</h1>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Avatar</th>
+            <th scope="col">Email</th>
+            <th scope="col">Full name</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user, iStat : ${users}">
+            <!-- # -->
+            <th scope="row" th:text="${iStat.index + 1}"></th>
+            <!-- Username -->
+            <td>
+              <a
+                th:href="@{|/admin/users/${user.id}|}"
+                th:text="${user.username}"
+              ></a>
+            </td>
+            <!-- Avatar -->
+            <td>
+              <img th:src="|/${user.avatar}|" alt="" class="logo-small" />
+            </td>
+            <!-- Email -->
+            <td th:text="${user.email}"></td>
+            <!-- Full name -->
+            <td th:text="${user.fullName}"></td>
+            <!-- Roles -->
+            <td th:text="${user.roles}"></td>
+            <!-- Status -->
+            <td th:text="${user.status}"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- BEGIN Pagination  -->
+      <nav
+        th:replace="fragments :: admin-pagination('users')"
+        aria-label="Page navigation"
+      ></nav>
+      <!-- END Pagination  -->
+    </div>
+    <!-- END container -->
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

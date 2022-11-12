@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- Container -->
+    <div class="container">
+      <th:block th:unless="${#lists.isEmpty(cartBooks)}">
+        <h1>Checkout</h1>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Thumbnail</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="cartBook, iStat : ${cartBooks}">
+              <!-- # -->
+              <th scope="row" th:text="${iStat.index + 1}"></th>
+              <!-- Name -->
+              <td th:text="${cartBook.book.name}"></td>
+              <!-- Thumbnail -->
+              <td>
+                <img
+                  th:src="|/${cartBook.book.thumbnail}|"
+                  alt=""
+                  class="logo-small"
+                />
+              </td>
+              <!-- Price -->
+              <td
+                th:text="|${#numbers.formatInteger(cartBook.book.price, 3, 'COMMA')} đ|"
+              ></td>
+              <!-- Quantity -->
+              <td th:text="${cartBook.quantity}"></td>
+              <!-- Options -->
+              <td>
+                <!-- <form
+                    id="form-update"
+                    th:action="@{|/admin/books/${book.id}/update|}"
+                    method="GET"
+                  >
+                    <button
+                      type="submit"
+                      form="form-update"
+                      class="btn btn-sm btn-secondary"
+                    >
+                      <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                  </form> -->
+                <form
+                  id="form-delete"
+                  th:action="@{|cartBooks/${cartBook.id}/delete|}"
+                  method="GET"
+                >
+                  <button type="submit" class="btn btn-sm btn-danger">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Total price -->
+        <p>
+          Total:
+          <span
+            th:text="|${#numbers.formatInteger(totalPrice, 3, 'COMMA')} đ|"
+          ></span>
+        </p>
+
+        <form th:action="@{checkout/confirm}" method="GET">
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </form>
+      </th:block>
+
+      <th:block th:if="${#lists.isEmpty(cartBooks)}">
+        <h4>Your cart is empty.</h4>
+        <a href="/">Continue buying books</a>
+      </th:block>
+    </div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>

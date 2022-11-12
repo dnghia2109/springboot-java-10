@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+  </head>
+  <body>
+    <!-- BEGIN fragment form -->
+    <form
+      th:fragment="form"
+      class="col-4"
+      action=""
+      th:object="${categoryRequest}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" th:field="*{name}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"
+          >
+            name error
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+      <button type="reset" class="btn btn-danger mb-3">Reset</button>
+    </form>
+    <!-- END fragment form -->
+  </body>
+</html>

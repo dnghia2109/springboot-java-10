@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Book Online</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <th:block th:replace="fragments :: admin-css"></th:block>
+  </head>
+  <body>
+    <!-- Header -->
+    <header th:replace="fragments :: header"></header>
+
+    <!-- BEGIN success alert -->
+    <div th:replace="fragments :: successAlert"></div>
+    <!-- END success alert -->
+
+    <!-- BEGIN container -->
+    <div class="container">
+      <h1>Category Details</h1>
+
+      <!-- BEGIN Table of details -->
+      <div class="col-8">
+        <table class="table table-bordered">
+          <!-- Name -->
+          <tr>
+            <th>Name</th>
+            <td th:text="${category.name}"></td>
+          </tr>
+          <!-- Number of books -->
+          <tr>
+            <th>Number of books</th>
+            <td th:text="${category.books.size}"></td>
+          </tr>
+        </table>
+      </div>
+      <!-- END Table of details -->
+
+      <!-- Buttons -->
+      <form
+        id="form-update"
+        class="mb-3"
+        th:action="@{|/admin/categories/${category.id}/update|}"
+        method="GET"
+      >
+        <button
+          type="submit"
+          form="form-update"
+          class="btn btn-sm btn-secondary"
+        >
+          <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+      </form>
+      <form
+        id="form-delete"
+        class="mb-3"
+        th:action="@{|/admin/categories/${categoryid}/delete|}"
+        method="GET"
+      >
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="btn btn-sm btn-danger"
+        >
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+      </form>
+    <!-- END container -->
+
+    <!-- Modal confirm delete -->
+    <div th:replace="fragments :: modalConfirmDelete"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments :: admin-scripts"></th:block>
+  </body>
+</html>
